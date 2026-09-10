@@ -12,8 +12,7 @@ Autora: Francisca Alarcon Saldana.
 Las fintech que ofrecen trading asistido por IA enfrentan un problema de
 confianza: los clientes reciben recomendaciones sin entender por que, lo que
 dificulta el cumplimiento de exigencias regulatorias de transparencia
-algoritmica y reduce la adopcion de estas herramientas. Ver `docs/informe.md`
-para el analisis completo del caso.
+algoritmica y reduce la adopcion de estas herramientas.
 
 ## Arquitectura
 
@@ -45,7 +44,6 @@ src/insight_trader/
 docs/
   architecture.md            # Diagrama de arquitectura y justificacion (IE4)
   prompts.md                 # Justificacion del diseno de prompts (IE2)
-  informe.md                 # Informe tecnico de la evaluacion (max. 5 paginas)
 tests/                        # Pruebas automatizadas (pytest)
 ```
 
