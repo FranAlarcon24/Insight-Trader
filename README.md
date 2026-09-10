@@ -45,6 +45,11 @@ docs/
   architecture.md            # Diagrama de arquitectura y justificacion (IE4)
   prompts.md                 # Justificacion del diseno de prompts (IE2)
 tests/                        # Pruebas automatizadas (pytest)
+scripts/
+  export_demo_data.py         # Exporta respuestas reales del pipeline a JSON
+web/
+  demo.html                   # Vista React sin build step (abrir en el navegador)
+web-react/                    # App React (Vite) que consume el JSON exportado
 ```
 
 ## Como ejecutar
@@ -75,12 +80,17 @@ python -m insight_trader.main TSLA
 
 ## Vista de demostracion (React)
 
-`web/demo.html` es una vista independiente en React (sin build step, cargada
-via CDN) que muestra las respuestas reales del copiloto para las 5 posiciones
-del portafolio simulado, con las fuentes citadas y la senal de riesgo-mercado.
-Se genero capturando la salida real del pipeline (`orchestrator.ask(...)`) para
-cada ticker, por lo que refleja el comportamiento efectivo del sistema, no datos
-inventados. Para verla, abre el archivo directamente en un navegador.
+`web-react/` es una app React (Vite) que muestra las respuestas reales del
+copiloto para las 5 posiciones del portafolio simulado, con las fuentes
+citadas y la senal de riesgo-mercado. Los datos se generan ejecutando el
+pipeline real (`scripts/export_demo_data.py` -> `web-react/src/data/recommendations.json`),
+por lo que refleja el comportamiento efectivo del sistema, no datos inventados.
+Ver [`web-react/README.md`](web-react/README.md) para instrucciones de
+desarrollo y despliegue.
+
+`web/demo.html` es una version mas simple de la misma vista (React cargado
+via CDN, sin build step) util para abrir directamente en el navegador sin
+instalar nada.
 
 ## Datos (simulados)
 

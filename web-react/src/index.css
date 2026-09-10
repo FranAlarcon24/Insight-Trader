@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+:root {
+  --ink: #16211e;
+  --paper: #f4f1e8;
+  --surface: #ffffff;
+  --surface-2: #eae6d8;
+  --accent: #b8722e;
+  --accent-soft: #eadfc9;
+  --good: #3e7c59;
+  --good-soft: #dceae0;
+  --warn: #b2432e;
+  --warn-soft: #f3dcd5;
+  --line: #d9d3c0;
+  --muted: #5c6660;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #ede8da;
+    --paper: #12181a;
+    --surface: #182022;
+    --surface-2: #1e2729;
+    --accent: #e3a15c;
+    --accent-soft: #3a2e1c;
+    --good: #6fc08f;
+    --good-soft: #1e2e24;
+    --warn: #e28268;
+    --warn-soft: #332019;
+    --line: #2b3436;
+    --muted: #93a29b;
+  }
+}
+
+:root[data-theme="dark"] {
+  --ink: #ede8da;
+  --paper: #12181a;
+  --surface: #182022;
+  --surface-2: #1e2729;
+  --accent: #e3a15c;
+  --accent-soft: #3a2e1c;
+  --good: #6fc08f;
+  --good-soft: #1e2e24;
+  --warn: #e28268;
+  --warn-soft: #332019;
+  --line: #2b3436;
+  --muted: #93a29b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+  padding: 20px 20px 48px;
+}
+
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  margin: 0;
+}
