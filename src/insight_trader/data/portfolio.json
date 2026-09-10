@@ -1,0 +1,52 @@
+{
+  "client_id": "CLT-1042",
+  "client_name": "Constanza Fuentes",
+  "risk_profile": {
+    "category": "moderado",
+    "max_drawdown_tolerance_pct": 12,
+    "investment_horizon_years": 5,
+    "notes": "Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo."
+  },
+  "holdings": [
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "quantity": 40,
+      "avg_buy_price": 168.20,
+      "current_weight_pct": 22.5,
+      "asset_class": "equity_tech"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla Inc.",
+      "quantity": 15,
+      "avg_buy_price": 210.50,
+      "current_weight_pct": 18.0,
+      "asset_class": "equity_tech"
+    },
+    {
+      "ticker": "BND",
+      "name": "Vanguard Total Bond Market ETF",
+      "quantity": 120,
+      "avg_buy_price": 72.10,
+      "current_weight_pct": 30.0,
+      "asset_class": "fixed_income"
+    },
+    {
+      "ticker": "ETH",
+      "name": "Ethereum",
+      "quantity": 3.2,
+      "avg_buy_price": 2100.00,
+      "current_weight_pct": 15.0,
+      "asset_class": "crypto"
+    },
+    {
+      "ticker": "VNQ",
+      "name": "Vanguard Real Estate ETF",
+      "quantity": 50,
+      "avg_buy_price": 85.30,
+      "current_weight_pct": 14.5,
+      "asset_class": "real_estate"
+    }
+  ]
+}

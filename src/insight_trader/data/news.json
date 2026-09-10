@@ -1,0 +1,42 @@
+[
+  {
+    "id": "news-001",
+    "ticker": "TSLA",
+    "date": "2026-09-08",
+    "headline": "Tesla supera estimados de entregas trimestrales y anuncia expansion en Latinoamerica",
+    "sentiment": "positivo",
+    "summary": "La compania reporto un aumento de entregas del 18% interanual, impulsando el precio de la accion. Analistas destacan riesgo de sobrevaloracion de corto plazo."
+  },
+  {
+    "id": "news-002",
+    "ticker": "ETH",
+    "date": "2026-09-09",
+    "headline": "Actualizacion de red Ethereum reduce comisiones y mejora escalabilidad",
+    "sentiment": "positivo",
+    "summary": "El upgrade genero un rally de precio, pero persiste alta volatilidad en el corto plazo debido a la naturaleza especulativa del activo."
+  },
+  {
+    "id": "news-003",
+    "ticker": "VNQ",
+    "date": "2026-09-07",
+    "headline": "Tasas de interes elevadas siguen presionando al sector inmobiliario",
+    "sentiment": "negativo",
+    "summary": "El sector REIT continua bajo presion por el entorno de tasas altas, con caidas sostenidas en las ultimas semanas."
+  },
+  {
+    "id": "news-004",
+    "ticker": "AAPL",
+    "date": "2026-09-06",
+    "headline": "Apple presenta nueva linea de productos con foco en IA generativa",
+    "sentiment": "positivo",
+    "summary": "El mercado reacciono favorablemente ante el anuncio, con expectativas de crecimiento en el segmento de servicios."
+  },
+  {
+    "id": "news-005",
+    "ticker": "BND",
+    "date": "2026-09-05",
+    "headline": "Banco central mantiene tasas sin cambios, renta fija se mantiene estable",
+    "sentiment": "neutral",
+    "summary": "La decision de politica monetaria no genero sorpresas; los instrumentos de renta fija se mantienen como refugio de estabilidad."
+  }
+]

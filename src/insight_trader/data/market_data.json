@@ -1,0 +1,41 @@
+{
+  "source": "simulated_chainlink_price_feeds",
+  "as_of": "2026-09-10T14:00:00Z",
+  "assets": [
+    {
+      "ticker": "AAPL",
+      "price": 178.90,
+      "change_7d_pct": 3.1,
+      "volatility_7d_pct": 9.4,
+      "trend": "alza"
+    },
+    {
+      "ticker": "TSLA",
+      "price": 236.70,
+      "change_7d_pct": 12.4,
+      "volatility_7d_pct": 21.8,
+      "trend": "alza_fuerte"
+    },
+    {
+      "ticker": "BND",
+      "price": 71.20,
+      "change_7d_pct": -0.4,
+      "volatility_7d_pct": 1.2,
+      "trend": "estable"
+    },
+    {
+      "ticker": "ETH",
+      "price": 2352.10,
+      "change_7d_pct": 11.9,
+      "volatility_7d_pct": 24.6,
+      "trend": "alza_fuerte"
+    },
+    {
+      "ticker": "VNQ",
+      "price": 83.10,
+      "change_7d_pct": -2.6,
+      "volatility_7d_pct": 6.7,
+      "trend": "baja"
+    }
+  ]
+}

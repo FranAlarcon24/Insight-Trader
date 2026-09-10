@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "insight-trader"
+version = "0.1.0"
+description = "Copiloto de Trading Explicable - sistema de agentes de IA con RAG de fuentes duales"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
