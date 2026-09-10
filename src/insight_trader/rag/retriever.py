@@ -79,7 +79,8 @@ def _new_index():
 class RAGRetriever:
     """Orquesta la ingesta y recuperacion de las fuentes internas y externas."""
 
-    def __init__(self):
+    def __init__(self, client_id: str = config.DEFAULT_CLIENT_ID):
+        self.client_id = client_id
         self.internal_index = _new_index()
         self.external_index = _new_index()
         self._internal_docs: list[_RawDoc] = []
@@ -96,8 +97,9 @@ class RAGRetriever:
         self._external_docs.append(_RawDoc(doc_id, text, metadata))
 
     def _load_internal_sources(self) -> None:
-        portfolio = json.loads(config.PORTFOLIO_PATH.read_text(encoding="utf-8"))
-        transactions = json.loads(config.TRANSACTIONS_PATH.read_text(encoding="utf-8"))
+        client = json.loads(config.client_data_path(self.client_id).read_text(encoding="utf-8"))
+        portfolio = client
+        transactions = client["transactions"]
 
         risk = portfolio["risk_profile"]
         self._add_internal(

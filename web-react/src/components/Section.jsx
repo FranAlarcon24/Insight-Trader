@@ -1,6 +1,6 @@
-export default function Section({ number, title, children }) {
+export default function Section({ id, number, title, children }) {
   return (
-    <section className="section">
+    <section id={id} className="section">
       <div className="section-head">
         <span className="section-num mono">{number}</span>
         <h2>{title}</h2>

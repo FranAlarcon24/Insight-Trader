@@ -8,11 +8,17 @@ backend.
 ## Como funciona
 
 Los datos vienen de `src/data/recommendations.json`, un archivo generado por
-el backend Python ejecutando el pipeline real para cada posicion del
-portafolio simulado (ver `../scripts/export_demo_data.py`). El componente
-`App.jsx` importa ese JSON y renderiza:
+el backend Python ejecutando el pipeline real para cada cliente simulado y
+cada posicion de su portafolio (ver `../scripts/export_demo_data.py`). El
+componente `App.jsx` importa ese JSON y renderiza:
 
-- `Sidebar`: lista de posiciones del portafolio (clic para seleccionar ticker).
+- `SectionNav`: barra superior fija con anclas a las 4 etapas del pipeline
+  (Consulta, Analisis, Evidencia, Recomendacion).
+- `ClientTabs`: selector de cliente simulado (cada uno con su propio perfil
+  de riesgo y portafolio).
+- `Sidebar`: lista de posiciones del portafolio del cliente activo (clic para
+  seleccionar ticker).
+- `Section` (x4): envoltorio de cada etapa del pipeline, numerada y titulada.
 - `SignalPills`: perfil de riesgo, volatilidad, cambio, tendencia y sentimiento
   del activo seleccionado.
 - `SourceColumn` (x2): los chunks citados de las fuentes internas y externas

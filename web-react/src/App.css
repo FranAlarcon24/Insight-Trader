@@ -1,39 +1,158 @@
+.page {
+  min-height: 100vh;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.brand-mark {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.section-nav {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.section-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.section-nav-link .mono {
+  font-size: 10.5px;
+  color: var(--accent);
+}
+.section-nav-link:hover {
+  color: var(--ink);
+  background: var(--surface);
+}
+
 .wrap {
   max-width: 1040px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 28px;
+  padding: 28px 20px 56px;
 }
 
 header.app {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 20px;
-}
-header.app h1 {
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  gap: 10px;
 }
 header.app .sub {
-  color: var(--muted);
-  font-size: 14px;
-  max-width: 46ch;
+  font-family: "Source Serif 4", Georgia, serif;
+  color: var(--ink);
+  font-size: 18px;
+  max-width: 50ch;
 }
 
 .demo-note {
   font-size: 12.5px;
   color: var(--muted);
   line-height: 1.5;
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--line);
 }
 .demo-note strong {
   color: var(--ink);
   font-weight: 600;
+}
+
+.client-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+}
+.client-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--muted);
+}
+.client-tab:hover {
+  border-color: var(--accent);
+}
+.client-tab.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.client-tab .client-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.client-tab .client-risk {
+  font-size: 11px;
+  text-transform: capitalize;
+}
+
+.client-summary {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  gap: 4px 18px;
+  align-items: baseline;
+  font-size: 13px;
+}
+.client-summary .k {
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.client-summary .v {
+  font-family: "IBM Plex Mono";
+  font-weight: 500;
+  text-transform: capitalize;
+}
+.client-summary .note {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-style: italic;
+  margin-top: 4px;
+}
+@media (max-width: 640px) {
+  .client-summary {
+    grid-template-columns: auto 1fr;
+  }
 }
 
 .layout {
@@ -52,7 +171,7 @@ header.app .sub {
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: 32px;
+  top: 76px;
 }
 .sidebar .label {
   font-size: 11px;
@@ -142,6 +261,7 @@ header.app .sub {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  scroll-margin-top: 76px;
 }
 .section-head {
   display: flex;

@@ -1,117 +1,318 @@
 [
   {
-    "ticker": "TSLA",
-    "question": "Deberia mantener, comprar o vender mi posicion?",
-    "internal": [
-      "Transaccion historica: el 2026-08-02 el cliente realizo buy de 5 unidades de TSLA a precio 205.1.",
-      "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
-      "Posicion del cliente en TSLA (Tesla Inc.): 15 unidades, precio promedio de compra 210.5, peso actual en portafolio 18.0%, clase de activo equity_tech."
-    ],
-    "external": [
-      "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para TSLA: precio 236.7, cambio_7d_pct: 12.4, volatilidad_7d_pct: 21.8, tendencia alza_fuerte.",
-      "Noticia sobre TSLA (2026-09-08): Tesla supera estimados de entregas trimestrales y anuncia expansion en Latinoamerica. sentimiento: positivo. La compania reporto un aumento de entregas del 18% interanual, impulsando el precio de la accion. Analistas destacan riesgo de sobrevaloracion de corto plazo."
-    ],
-    "recommendation": "Recomendacion para TSLA: reducir posicion.\nJustificacion: Se sugiere reducir posicion porque la volatilidad reciente (21.8%) supera la tolerancia al riesgo declarada por el cliente (12.0%). Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
-    "signal": {
-      "risk_category": "moderado",
-      "risk_tolerance": 12,
-      "volatility": 21.8,
-      "change": 12.4,
-      "trend": "alza_fuerte",
-      "sentiment": "positivo",
-      "exceeds": true
-    }
+    "client_id": "constanza_fuentes",
+    "client_name": "Constanza Fuentes",
+    "risk_category": "moderado",
+    "risk_tolerance": 12,
+    "investment_horizon_years": 5,
+    "notes": "Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
+    "holdings": [
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 22.5,
+        "asset_class": "equity_tech",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Transaccion historica: el 2026-08-28 el cliente realizo sell de 10 unidades de AAPL a precio 172.4.",
+          "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
+          "Posicion del cliente en AAPL (Apple Inc.): 40 unidades, precio promedio de compra 168.2, peso actual en portafolio 22.5%, clase de activo equity_tech."
+        ],
+        "external": [
+          "Noticia sobre AAPL (2026-09-06): Apple presenta nueva linea de productos con foco en IA generativa. sentimiento: positivo. El mercado reacciono favorablemente ante el anuncio, con expectativas de crecimiento en el segmento de servicios.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para AAPL: precio 178.9, cambio_7d_pct: 3.1, volatilidad_7d_pct: 9.4, tendencia alza."
+        ],
+        "recommendation": "Recomendacion para AAPL: mantener posicion.\nJustificacion: Se sugiere mantener posicion porque no se detectan senales que justifiquen un cambio respecto al perfil de riesgo del cliente. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "moderado",
+          "risk_tolerance": 12,
+          "volatility": 9.4,
+          "change": 3.1,
+          "trend": "alza",
+          "sentiment": "positivo",
+          "exceeds": false
+        }
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 18.0,
+        "asset_class": "equity_tech",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Transaccion historica: el 2026-08-02 el cliente realizo buy de 5 unidades de TSLA a precio 205.1.",
+          "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
+          "Posicion del cliente en TSLA (Tesla Inc.): 15 unidades, precio promedio de compra 210.5, peso actual en portafolio 18.0%, clase de activo equity_tech."
+        ],
+        "external": [
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para TSLA: precio 236.7, cambio_7d_pct: 12.4, volatilidad_7d_pct: 21.8, tendencia alza_fuerte.",
+          "Noticia sobre TSLA (2026-09-08): Tesla supera estimados de entregas trimestrales y anuncia expansion en Latinoamerica. sentimiento: positivo. La compania reporto un aumento de entregas del 18% interanual, impulsando el precio de la accion. Analistas destacan riesgo de sobrevaloracion de corto plazo."
+        ],
+        "recommendation": "Recomendacion para TSLA: reducir posicion.\nJustificacion: Se sugiere reducir posicion porque la volatilidad reciente (21.8%) supera la tolerancia al riesgo declarada por el cliente (12.0%). Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "moderado",
+          "risk_tolerance": 12,
+          "volatility": 21.8,
+          "change": 12.4,
+          "trend": "alza_fuerte",
+          "sentiment": "positivo",
+          "exceeds": true
+        }
+      },
+      {
+        "ticker": "BND",
+        "name": "Vanguard Total Bond Market ETF",
+        "weight": 30.0,
+        "asset_class": "fixed_income",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
+          "Transaccion historica: el 2026-09-01 el cliente realizo buy de 20 unidades de BND a precio 71.8.",
+          "Posicion del cliente en BND (Vanguard Total Bond Market ETF): 120 unidades, precio promedio de compra 72.1, peso actual en portafolio 30.0%, clase de activo fixed_income."
+        ],
+        "external": [
+          "Noticia sobre BND (2026-09-05): Banco central mantiene tasas sin cambios, renta fija se mantiene estable. sentimiento: neutral. La decision de politica monetaria no genero sorpresas; los instrumentos de renta fija se mantienen como refugio de estabilidad.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para BND: precio 71.2, cambio_7d_pct: -0.4, volatilidad_7d_pct: 1.2, tendencia estable."
+        ],
+        "recommendation": "Recomendacion para BND: mantener posicion.\nJustificacion: Se sugiere mantener posicion porque no se detectan senales que justifiquen un cambio respecto al perfil de riesgo del cliente. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "moderado",
+          "risk_tolerance": 12,
+          "volatility": 1.2,
+          "change": -0.4,
+          "trend": "estable",
+          "sentiment": "neutral",
+          "exceeds": false
+        }
+      },
+      {
+        "ticker": "ETH",
+        "name": "Ethereum",
+        "weight": 15.0,
+        "asset_class": "crypto",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Transaccion historica: el 2026-08-15 el cliente realizo buy de 1.0 unidades de ETH a precio 2050.0.",
+          "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
+          "Posicion del cliente en ETH (Ethereum): 3.2 unidades, precio promedio de compra 2100.0, peso actual en portafolio 15.0%, clase de activo crypto."
+        ],
+        "external": [
+          "Noticia sobre ETH (2026-09-09): Actualizacion de red Ethereum reduce comisiones y mejora escalabilidad. sentimiento: positivo. El upgrade genero un rally de precio, pero persiste alta volatilidad en el corto plazo debido a la naturaleza especulativa del activo.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para ETH: precio 2352.1, cambio_7d_pct: 11.9, volatilidad_7d_pct: 24.6, tendencia alza_fuerte."
+        ],
+        "recommendation": "Recomendacion para ETH: reducir posicion.\nJustificacion: Se sugiere reducir posicion porque la volatilidad reciente (24.6%) supera la tolerancia al riesgo declarada por el cliente (12.0%). Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "moderado",
+          "risk_tolerance": 12,
+          "volatility": 24.6,
+          "change": 11.9,
+          "trend": "alza_fuerte",
+          "sentiment": "positivo",
+          "exceeds": true
+        }
+      },
+      {
+        "ticker": "VNQ",
+        "name": "Vanguard Real Estate ETF",
+        "weight": 14.5,
+        "asset_class": "real_estate",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Posicion del cliente en VNQ (Vanguard Real Estate ETF): 50 unidades, precio promedio de compra 85.3, peso actual en portafolio 14.5%, clase de activo real_estate.",
+          "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
+          "Transaccion historica: el 2026-09-05 el cliente realizo buy de 10 unidades de VNQ a precio 86.0."
+        ],
+        "external": [
+          "Noticia sobre VNQ (2026-09-07): Tasas de interes elevadas siguen presionando al sector inmobiliario. sentimiento: negativo. El sector REIT continua bajo presion por el entorno de tasas altas, con caidas sostenidas en las ultimas semanas.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para VNQ: precio 83.1, cambio_7d_pct: -2.6, volatilidad_7d_pct: 6.7, tendencia baja."
+        ],
+        "recommendation": "Recomendacion para VNQ: mantener posicion y monitorear.\nJustificacion: Se sugiere mantener posicion y monitorear porque el activo presenta una caida reciente (-2.6% en 7 dias) que amerita seguimiento. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "moderado",
+          "risk_tolerance": 12,
+          "volatility": 6.7,
+          "change": -2.6,
+          "trend": "baja",
+          "sentiment": "negativo",
+          "exceeds": false
+        }
+      }
+    ]
   },
   {
-    "ticker": "AAPL",
-    "question": "Deberia mantener, comprar o vender mi posicion?",
-    "internal": [
-      "Transaccion historica: el 2026-08-28 el cliente realizo sell de 10 unidades de AAPL a precio 172.4.",
-      "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
-      "Posicion del cliente en AAPL (Apple Inc.): 40 unidades, precio promedio de compra 168.2, peso actual en portafolio 22.5%, clase de activo equity_tech."
-    ],
-    "external": [
-      "Noticia sobre AAPL (2026-09-06): Apple presenta nueva linea de productos con foco en IA generativa. sentimiento: positivo. El mercado reacciono favorablemente ante el anuncio, con expectativas de crecimiento en el segmento de servicios.",
-      "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para AAPL: precio 178.9, cambio_7d_pct: 3.1, volatilidad_7d_pct: 9.4, tendencia alza."
-    ],
-    "recommendation": "Recomendacion para AAPL: mantener posicion.\nJustificacion: Se sugiere mantener posicion porque no se detectan senales que justifiquen un cambio respecto al perfil de riesgo del cliente. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
-    "signal": {
-      "risk_category": "moderado",
-      "risk_tolerance": 12,
-      "volatility": 9.4,
-      "change": 3.1,
-      "trend": "alza",
-      "sentiment": "positivo",
-      "exceeds": false
-    }
+    "client_id": "diego_herrera",
+    "client_name": "Diego Herrera",
+    "risk_category": "conservador",
+    "risk_tolerance": 6,
+    "investment_horizon_years": 3,
+    "notes": "Cliente proximo a jubilarse; prioriza estabilidad y liquidez, evita activos de alta volatilidad.",
+    "holdings": [
+      {
+        "ticker": "BND",
+        "name": "Vanguard Total Bond Market ETF",
+        "weight": 55.0,
+        "asset_class": "fixed_income",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Perfil de riesgo del cliente Diego Herrera: categoria conservador, tolerancia_drawdown_pct: 6, horizonte de inversion 3 anios. Cliente proximo a jubilarse; prioriza estabilidad y liquidez, evita activos de alta volatilidad.",
+          "Transaccion historica: el 2026-07-20 el cliente realizo buy de 50 unidades de BND a precio 71.2.",
+          "Posicion del cliente en BND (Vanguard Total Bond Market ETF): 300 unidades, precio promedio de compra 71.5, peso actual en portafolio 55.0%, clase de activo fixed_income."
+        ],
+        "external": [
+          "Noticia sobre BND (2026-09-05): Banco central mantiene tasas sin cambios, renta fija se mantiene estable. sentimiento: neutral. La decision de politica monetaria no genero sorpresas; los instrumentos de renta fija se mantienen como refugio de estabilidad.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para BND: precio 71.2, cambio_7d_pct: -0.4, volatilidad_7d_pct: 1.2, tendencia estable."
+        ],
+        "recommendation": "Recomendacion para BND: mantener posicion.\nJustificacion: Se sugiere mantener posicion porque no se detectan senales que justifiquen un cambio respecto al perfil de riesgo del cliente. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "conservador",
+          "risk_tolerance": 6,
+          "volatility": 1.2,
+          "change": -0.4,
+          "trend": "estable",
+          "sentiment": "neutral",
+          "exceeds": false
+        }
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 20.0,
+        "asset_class": "equity_tech",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Transaccion historica: el 2026-09-02 el cliente realizo sell de 5 unidades de AAPL a precio 176.0.",
+          "Perfil de riesgo del cliente Diego Herrera: categoria conservador, tolerancia_drawdown_pct: 6, horizonte de inversion 3 anios. Cliente proximo a jubilarse; prioriza estabilidad y liquidez, evita activos de alta volatilidad.",
+          "Posicion del cliente en AAPL (Apple Inc.): 20 unidades, precio promedio de compra 165.0, peso actual en portafolio 20.0%, clase de activo equity_tech."
+        ],
+        "external": [
+          "Noticia sobre AAPL (2026-09-06): Apple presenta nueva linea de productos con foco en IA generativa. sentimiento: positivo. El mercado reacciono favorablemente ante el anuncio, con expectativas de crecimiento en el segmento de servicios.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para AAPL: precio 178.9, cambio_7d_pct: 3.1, volatilidad_7d_pct: 9.4, tendencia alza."
+        ],
+        "recommendation": "Recomendacion para AAPL: reducir posicion.\nJustificacion: Se sugiere reducir posicion porque la volatilidad reciente (9.4%) supera la tolerancia al riesgo declarada por el cliente (6.0%). Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "conservador",
+          "risk_tolerance": 6,
+          "volatility": 9.4,
+          "change": 3.1,
+          "trend": "alza",
+          "sentiment": "positivo",
+          "exceeds": true
+        }
+      },
+      {
+        "ticker": "VNQ",
+        "name": "Vanguard Real Estate ETF",
+        "weight": 25.0,
+        "asset_class": "real_estate",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Perfil de riesgo del cliente Diego Herrera: categoria conservador, tolerancia_drawdown_pct: 6, horizonte de inversion 3 anios. Cliente proximo a jubilarse; prioriza estabilidad y liquidez, evita activos de alta volatilidad.",
+          "Posicion del cliente en VNQ (Vanguard Real Estate ETF): 60 unidades, precio promedio de compra 84.0, peso actual en portafolio 25.0%, clase de activo real_estate.",
+          "Transaccion historica: el 2026-08-10 el cliente realizo buy de 15 unidades de VNQ a precio 85.5."
+        ],
+        "external": [
+          "Noticia sobre VNQ (2026-09-07): Tasas de interes elevadas siguen presionando al sector inmobiliario. sentimiento: negativo. El sector REIT continua bajo presion por el entorno de tasas altas, con caidas sostenidas en las ultimas semanas.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para VNQ: precio 83.1, cambio_7d_pct: -2.6, volatilidad_7d_pct: 6.7, tendencia baja."
+        ],
+        "recommendation": "Recomendacion para VNQ: reducir posicion.\nJustificacion: Se sugiere reducir posicion porque la volatilidad reciente (6.7%) supera la tolerancia al riesgo declarada por el cliente (6.0%). Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "conservador",
+          "risk_tolerance": 6,
+          "volatility": 6.7,
+          "change": -2.6,
+          "trend": "baja",
+          "sentiment": "negativo",
+          "exceeds": true
+        }
+      }
+    ]
   },
   {
-    "ticker": "ETH",
-    "question": "Deberia mantener, comprar o vender mi posicion?",
-    "internal": [
-      "Transaccion historica: el 2026-08-15 el cliente realizo buy de 1.0 unidades de ETH a precio 2050.0.",
-      "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
-      "Posicion del cliente en ETH (Ethereum): 3.2 unidades, precio promedio de compra 2100.0, peso actual en portafolio 15.0%, clase de activo crypto."
-    ],
-    "external": [
-      "Noticia sobre ETH (2026-09-09): Actualizacion de red Ethereum reduce comisiones y mejora escalabilidad. sentimiento: positivo. El upgrade genero un rally de precio, pero persiste alta volatilidad en el corto plazo debido a la naturaleza especulativa del activo.",
-      "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para ETH: precio 2352.1, cambio_7d_pct: 11.9, volatilidad_7d_pct: 24.6, tendencia alza_fuerte."
-    ],
-    "recommendation": "Recomendacion para ETH: reducir posicion.\nJustificacion: Se sugiere reducir posicion porque la volatilidad reciente (24.6%) supera la tolerancia al riesgo declarada por el cliente (12.0%). Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
-    "signal": {
-      "risk_category": "moderado",
-      "risk_tolerance": 12,
-      "volatility": 24.6,
-      "change": 11.9,
-      "trend": "alza_fuerte",
-      "sentiment": "positivo",
-      "exceeds": true
-    }
-  },
-  {
-    "ticker": "BND",
-    "question": "Deberia mantener, comprar o vender mi posicion?",
-    "internal": [
-      "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
-      "Transaccion historica: el 2026-09-01 el cliente realizo buy de 20 unidades de BND a precio 71.8.",
-      "Posicion del cliente en BND (Vanguard Total Bond Market ETF): 120 unidades, precio promedio de compra 72.1, peso actual en portafolio 30.0%, clase de activo fixed_income."
-    ],
-    "external": [
-      "Noticia sobre BND (2026-09-05): Banco central mantiene tasas sin cambios, renta fija se mantiene estable. sentimiento: neutral. La decision de politica monetaria no genero sorpresas; los instrumentos de renta fija se mantienen como refugio de estabilidad.",
-      "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para BND: precio 71.2, cambio_7d_pct: -0.4, volatilidad_7d_pct: 1.2, tendencia estable."
-    ],
-    "recommendation": "Recomendacion para BND: mantener posicion.\nJustificacion: Se sugiere mantener posicion porque no se detectan senales que justifiquen un cambio respecto al perfil de riesgo del cliente. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
-    "signal": {
-      "risk_category": "moderado",
-      "risk_tolerance": 12,
-      "volatility": 1.2,
-      "change": -0.4,
-      "trend": "estable",
-      "sentiment": "neutral",
-      "exceeds": false
-    }
-  },
-  {
-    "ticker": "VNQ",
-    "question": "Deberia mantener, comprar o vender mi posicion?",
-    "internal": [
-      "Posicion del cliente en VNQ (Vanguard Real Estate ETF): 50 unidades, precio promedio de compra 85.3, peso actual en portafolio 14.5%, clase de activo real_estate.",
-      "Perfil de riesgo del cliente Constanza Fuentes: categoria moderado, tolerancia_drawdown_pct: 12, horizonte de inversion 5 anios. Cliente declara tolerancia moderada al riesgo; prioriza preservacion de capital sobre retorno agresivo.",
-      "Transaccion historica: el 2026-09-05 el cliente realizo buy de 10 unidades de VNQ a precio 86.0."
-    ],
-    "external": [
-      "Noticia sobre VNQ (2026-09-07): Tasas de interes elevadas siguen presionando al sector inmobiliario. sentimiento: negativo. El sector REIT continua bajo presion por el entorno de tasas altas, con caidas sostenidas en las ultimas semanas.",
-      "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para VNQ: precio 83.1, cambio_7d_pct: -2.6, volatilidad_7d_pct: 6.7, tendencia baja."
-    ],
-    "recommendation": "Recomendacion para VNQ: mantener posicion y monitorear.\nJustificacion: Se sugiere mantener posicion y monitorear porque el activo presenta una caida reciente (-2.6% en 7 dias) que amerita seguimiento. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
-    "signal": {
-      "risk_category": "moderado",
-      "risk_tolerance": 12,
-      "volatility": 6.7,
-      "change": -2.6,
-      "trend": "baja",
-      "sentiment": "negativo",
-      "exceeds": false
-    }
+    "client_id": "valentina_rojas",
+    "client_name": "Valentina Rojas",
+    "risk_category": "agresivo",
+    "risk_tolerance": 30,
+    "investment_horizon_years": 10,
+    "notes": "Cliente joven con horizonte de inversion largo; busca maximizar retorno y tolera alta volatilidad.",
+    "holdings": [
+      {
+        "ticker": "ETH",
+        "name": "Ethereum",
+        "weight": 40.0,
+        "asset_class": "crypto",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Transaccion historica: el 2026-08-05 el cliente realizo buy de 2.0 unidades de ETH a precio 1980.0.",
+          "Perfil de riesgo del cliente Valentina Rojas: categoria agresivo, tolerancia_drawdown_pct: 30, horizonte de inversion 10 anios. Cliente joven con horizonte de inversion largo; busca maximizar retorno y tolera alta volatilidad.",
+          "Posicion del cliente en ETH (Ethereum): 8.5 unidades, precio promedio de compra 1950.0, peso actual en portafolio 40.0%, clase de activo crypto."
+        ],
+        "external": [
+          "Noticia sobre ETH (2026-09-09): Actualizacion de red Ethereum reduce comisiones y mejora escalabilidad. sentimiento: positivo. El upgrade genero un rally de precio, pero persiste alta volatilidad en el corto plazo debido a la naturaleza especulativa del activo.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para ETH: precio 2352.1, cambio_7d_pct: 11.9, volatilidad_7d_pct: 24.6, tendencia alza_fuerte."
+        ],
+        "recommendation": "Recomendacion para ETH: mantener posicion.\nJustificacion: Se sugiere mantener posicion porque el activo muestra una tendencia positiva (11.9% en 7 dias) respaldada por noticias de sentimiento positivo, dentro del rango de riesgo tolerado. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "agresivo",
+          "risk_tolerance": 30,
+          "volatility": 24.6,
+          "change": 11.9,
+          "trend": "alza_fuerte",
+          "sentiment": "positivo",
+          "exceeds": false
+        }
+      },
+      {
+        "ticker": "TSLA",
+        "name": "Tesla Inc.",
+        "weight": 35.0,
+        "asset_class": "equity_tech",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Perfil de riesgo del cliente Valentina Rojas: categoria agresivo, tolerancia_drawdown_pct: 30, horizonte de inversion 10 anios. Cliente joven con horizonte de inversion largo; busca maximizar retorno y tolera alta volatilidad.",
+          "Transaccion historica: el 2026-08-22 el cliente realizo buy de 10 unidades de TSLA a precio 202.0.",
+          "Posicion del cliente en TSLA (Tesla Inc.): 35 unidades, precio promedio de compra 198.0, peso actual en portafolio 35.0%, clase de activo equity_tech."
+        ],
+        "external": [
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para TSLA: precio 236.7, cambio_7d_pct: 12.4, volatilidad_7d_pct: 21.8, tendencia alza_fuerte.",
+          "Noticia sobre TSLA (2026-09-08): Tesla supera estimados de entregas trimestrales y anuncia expansion en Latinoamerica. sentimiento: positivo. La compania reporto un aumento de entregas del 18% interanual, impulsando el precio de la accion. Analistas destacan riesgo de sobrevaloracion de corto plazo."
+        ],
+        "recommendation": "Recomendacion para TSLA: mantener posicion.\nJustificacion: Se sugiere mantener posicion porque el activo muestra una tendencia positiva (12.4% en 7 dias) respaldada por noticias de sentimiento positivo, dentro del rango de riesgo tolerado. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "agresivo",
+          "risk_tolerance": 30,
+          "volatility": 21.8,
+          "change": 12.4,
+          "trend": "alza_fuerte",
+          "sentiment": "positivo",
+          "exceeds": false
+        }
+      },
+      {
+        "ticker": "AAPL",
+        "name": "Apple Inc.",
+        "weight": 25.0,
+        "asset_class": "equity_tech",
+        "question": "Deberia mantener, comprar o vender mi posicion?",
+        "internal": [
+          "Perfil de riesgo del cliente Valentina Rojas: categoria agresivo, tolerancia_drawdown_pct: 30, horizonte de inversion 10 anios. Cliente joven con horizonte de inversion largo; busca maximizar retorno y tolera alta volatilidad.",
+          "Transaccion historica: el 2026-09-08 el cliente realizo buy de 5 unidades de AAPL a precio 177.5.",
+          "Posicion del cliente en AAPL (Apple Inc.): 25 unidades, precio promedio de compra 170.0, peso actual en portafolio 25.0%, clase de activo equity_tech."
+        ],
+        "external": [
+          "Noticia sobre AAPL (2026-09-06): Apple presenta nueva linea de productos con foco en IA generativa. sentimiento: positivo. El mercado reacciono favorablemente ante el anuncio, con expectativas de crecimiento en el segmento de servicios.",
+          "Datos de mercado en tiempo real (simulated_chainlink_price_feeds) para AAPL: precio 178.9, cambio_7d_pct: 3.1, volatilidad_7d_pct: 9.4, tendencia alza."
+        ],
+        "recommendation": "Recomendacion para AAPL: mantener posicion.\nJustificacion: Se sugiere mantener posicion porque no se detectan senales que justifiquen un cambio respecto al perfil de riesgo del cliente. Esta recomendacion se basa en datos de mercado y perfil de riesgo recuperados por el sistema, citados explicitamente arriba.",
+        "signal": {
+          "risk_category": "agresivo",
+          "risk_tolerance": 30,
+          "volatility": 9.4,
+          "change": 3.1,
+          "trend": "alza",
+          "sentiment": "positivo",
+          "exceeds": false
+        }
+      }
+    ]
   }
 ]

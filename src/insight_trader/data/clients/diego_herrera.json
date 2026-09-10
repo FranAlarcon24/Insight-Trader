@@ -1,0 +1,41 @@
+{
+  "client_id": "CLT-2091",
+  "client_name": "Diego Herrera",
+  "risk_profile": {
+    "category": "conservador",
+    "max_drawdown_tolerance_pct": 6,
+    "investment_horizon_years": 3,
+    "notes": "Cliente proximo a jubilarse; prioriza estabilidad y liquidez, evita activos de alta volatilidad."
+  },
+  "holdings": [
+    {
+      "ticker": "BND",
+      "name": "Vanguard Total Bond Market ETF",
+      "quantity": 300,
+      "avg_buy_price": 71.50,
+      "current_weight_pct": 55.0,
+      "asset_class": "fixed_income"
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "quantity": 20,
+      "avg_buy_price": 165.00,
+      "current_weight_pct": 20.0,
+      "asset_class": "equity_tech"
+    },
+    {
+      "ticker": "VNQ",
+      "name": "Vanguard Real Estate ETF",
+      "quantity": 60,
+      "avg_buy_price": 84.00,
+      "current_weight_pct": 25.0,
+      "asset_class": "real_estate"
+    }
+  ],
+  "transactions": [
+    {"date": "2026-07-20", "ticker": "BND", "action": "buy", "quantity": 50, "price": 71.20},
+    {"date": "2026-08-10", "ticker": "VNQ", "action": "buy", "quantity": 15, "price": 85.50},
+    {"date": "2026-09-02", "ticker": "AAPL", "action": "sell", "quantity": 5, "price": 176.00}
+  ]
+}

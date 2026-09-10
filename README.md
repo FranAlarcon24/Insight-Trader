@@ -97,10 +97,14 @@ instalar nada.
 Todos los datos en `src/insight_trader/data/*.json` son simulados para fines
 academicos:
 
-- **Internas**: `portfolio.json` (portafolio + perfil de riesgo del cliente),
-  `transactions.json` (historial de transacciones).
+- **Internas**: `clients/*.json`, un archivo por cliente simulado (portafolio,
+  perfil de riesgo y historial de transacciones). Hay 3 clientes con perfiles
+  de riesgo distintos: `constanza_fuentes` (moderado), `diego_herrera`
+  (conservador) y `valentina_rojas` (agresivo). Usa `--client <id>` en el CLI
+  para elegir uno.
 - **Externas**: `market_data.json` (precios y volatilidad, simulando un feed
   tipo Chainlink Price Feeds), `news.json` (noticias financieras con sentimiento).
+  Son compartidas por todos los clientes (el mercado es el mismo para todos).
 
 ## Pruebas realizadas
 

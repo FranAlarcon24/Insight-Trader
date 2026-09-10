@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 
+from insight_trader import config
 from insight_trader.agents.orchestrator import TradingCopilotOrchestrator
 
 
@@ -14,9 +15,15 @@ def main() -> None:
         default="Deberia mantener, comprar o vender mi posicion?",
         help="Pregunta del cliente sobre el activo",
     )
+    parser.add_argument(
+        "--client",
+        default=config.DEFAULT_CLIENT_ID,
+        choices=config.list_client_ids(),
+        help="Cliente simulado a consultar",
+    )
     args = parser.parse_args()
 
-    orchestrator = TradingCopilotOrchestrator()
+    orchestrator = TradingCopilotOrchestrator(client_id=args.client)
     response = orchestrator.ask(args.ticker.upper(), args.question)
 
     print(f"\nPregunta: {response.question}")

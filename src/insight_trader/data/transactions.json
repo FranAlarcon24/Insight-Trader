@@ -1,7 +1,0 @@
-[
-  {"date": "2026-08-02", "ticker": "TSLA", "action": "buy", "quantity": 5, "price": 205.10},
-  {"date": "2026-08-15", "ticker": "ETH", "action": "buy", "quantity": 1.0, "price": 2050.00},
-  {"date": "2026-08-28", "ticker": "AAPL", "action": "sell", "quantity": 10, "price": 172.40},
-  {"date": "2026-09-01", "ticker": "BND", "action": "buy", "quantity": 20, "price": 71.80},
-  {"date": "2026-09-05", "ticker": "VNQ", "action": "buy", "quantity": 10, "price": 86.00}
-]

@@ -4,10 +4,19 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).parent / "data"
 
-PORTFOLIO_PATH = DATA_DIR / "portfolio.json"
-TRANSACTIONS_PATH = DATA_DIR / "transactions.json"
+CLIENTS_DIR = DATA_DIR / "clients"
 MARKET_DATA_PATH = DATA_DIR / "market_data.json"
 NEWS_PATH = DATA_DIR / "news.json"
+
+DEFAULT_CLIENT_ID = "constanza_fuentes"
+
+
+def client_data_path(client_id: str) -> Path:
+    return CLIENTS_DIR / f"{client_id}.json"
+
+
+def list_client_ids() -> list[str]:
+    return sorted(p.stem for p in CLIENTS_DIR.glob("*.json"))
 
 # Proveedor de LLM: "mock" (por defecto, sin costo/API key) o "anthropic".
 LLM_PROVIDER = os.getenv("INSIGHT_TRADER_LLM_PROVIDER", "mock")
