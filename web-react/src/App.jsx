@@ -13,25 +13,17 @@ export default function App() {
   return (
     <div className="wrap">
       <header className="app">
-        <div>
-          <div className="brand">
-            <span className="mark">IT</span>
-            <h1>Insight Trader</h1>
-          </div>
-          <div className="sub">
-            Copiloto de trading explicable — recomendaciones con fuentes citadas
-          </div>
+        <h1>Insight Trader</h1>
+        <div className="sub">
+          Copiloto de trading explicable — recomendaciones con fuentes citadas
         </div>
       </header>
 
-      <div className="demo-banner">
-        <span>
-          <strong>Demo: </strong>
-          estas son respuestas reales generadas por el pipeline de agentes
-          (RAG dual + MockLLM) del proyecto Python, exportadas a{" "}
-          <code className="mono">recommendations.json</code>.
-        </span>
-      </div>
+      <p className="demo-note">
+        <strong>Demo:</strong> estas son respuestas reales generadas por el
+        pipeline de agentes (RAG dual + MockLLM) del proyecto Python,
+        exportadas a <code className="mono">recommendations.json</code>.
+      </p>
 
       <div className="layout">
         <Sidebar data={data} selectedTicker={selectedTicker} onSelect={setSelectedTicker} />

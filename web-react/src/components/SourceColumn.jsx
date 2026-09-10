@@ -14,10 +14,7 @@ function highlightNumbers(text) {
 export default function SourceColumn({ title, chunks, variant }) {
   return (
     <div className={"source-col " + variant}>
-      <h3>
-        <span className="dot" />
-        {title}
-      </h3>
+      <h3>{title}</h3>
       {chunks.map((chunk, i) => (
         <div className="chunk" key={i}>
           {highlightNumbers(chunk)}
