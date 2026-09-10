@@ -75,6 +75,15 @@ pip install anthropic
 python -m insight_trader.main TSLA
 ```
 
+## Vista de demostracion (React)
+
+`web/demo.html` es una vista independiente en React (sin build step, cargada
+via CDN) que muestra las respuestas reales del copiloto para las 5 posiciones
+del portafolio simulado, con las fuentes citadas y la senal de riesgo-mercado.
+Se genero capturando la salida real del pipeline (`orchestrator.ask(...)`) para
+cada ticker, por lo que refleja el comportamiento efectivo del sistema, no datos
+inventados. Para verla, abre el archivo directamente en un navegador.
+
 ## Datos (simulados)
 
 Todos los datos en `src/insight_trader/data/*.json` son simulados para fines
