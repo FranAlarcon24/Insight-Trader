@@ -24,6 +24,10 @@ En resumen: un **Agente Orquestador** coordina un **Agente de Recuperacion**
 mercado) y un **Agente Generador** (LLM que redacta la recomendacion citando
 los datos recuperados).
 
+Justificacion de decisiones, esquemas, conclusiones y referencias (IE5) en
+[`docs/documentacion_tecnica.md`](docs/documentacion_tecnica.md). Justificacion
+del diseno de prompts (IE2) en [`docs/prompts.md`](docs/prompts.md).
+
 ## Estructura del repositorio
 
 ```
@@ -44,6 +48,7 @@ src/insight_trader/
 docs/
   architecture.md            # Diagrama de arquitectura y justificacion (IE4)
   prompts.md                 # Justificacion del diseno de prompts (IE2)
+  documentacion_tecnica.md   # Decisiones, esquemas, conclusiones y referencias (IE5)
 tests/                        # Pruebas automatizadas (pytest)
 scripts/
   export_demo_data.py         # Exporta respuestas reales del pipeline a JSON
