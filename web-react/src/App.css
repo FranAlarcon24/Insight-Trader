@@ -126,15 +126,10 @@ header.app .sub {
 .panel {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 30px;
   min-width: 0;
 }
 
-.question-card {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
 .eyebrow {
   font-size: 11px;
   letter-spacing: 0.08em;
@@ -142,10 +137,50 @@ header.app .sub {
   color: var(--muted);
   font-weight: 500;
 }
-.question-card .q {
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.section-num {
+  font-size: 12px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.section-head h2 {
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: "IBM Plex Sans";
+  font-weight: 600;
+  color: var(--ink);
+  flex: 1;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.q {
+  display: block;
   font-family: "Source Serif 4", Georgia, serif;
   font-size: 19px;
   font-weight: 500;
+}
+.q-ticker {
+  display: block;
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 4px;
 }
 
 .signal-row {
@@ -228,8 +263,6 @@ header.app .sub {
 }
 
 .reco {
-  padding: 20px 0 4px;
-  border-top: 2px solid var(--ink);
   display: flex;
   flex-direction: column;
   gap: 10px;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import data from "./data/recommendations.json";
 import Sidebar from "./components/Sidebar";
+import Section from "./components/Section";
 import SignalPills from "./components/SignalPills";
 import SourceColumn from "./components/SourceColumn";
 import RecommendationCard from "./components/RecommendationCard";
@@ -30,19 +31,25 @@ export default function App() {
 
         {entry && (
           <div className="panel">
-            <div className="question-card">
-              <span className="eyebrow">Pregunta del cliente · {entry.ticker}</span>
+            <Section number="01" title="Consulta">
               <span className="q">“{entry.question}”</span>
-            </div>
+              <span className="q-ticker mono">activo objetivo: {entry.ticker}</span>
+            </Section>
 
-            <SignalPills signal={entry.signal} />
+            <Section number="02" title="Análisis riesgo-mercado">
+              <SignalPills signal={entry.signal} />
+            </Section>
 
-            <div className="sources">
-              <SourceColumn title="Fuentes internas" chunks={entry.internal} variant="internal" />
-              <SourceColumn title="Fuentes externas" chunks={entry.external} variant="external" />
-            </div>
+            <Section number="03" title="Evidencia recuperada (RAG)">
+              <div className="sources">
+                <SourceColumn title="Fuentes internas" chunks={entry.internal} variant="internal" />
+                <SourceColumn title="Fuentes externas" chunks={entry.external} variant="external" />
+              </div>
+            </Section>
 
-            <RecommendationCard recommendation={entry.recommendation} />
+            <Section number="04" title="Recomendación generada">
+              <RecommendationCard recommendation={entry.recommendation} />
+            </Section>
           </div>
         )}
       </div>
