@@ -79,8 +79,15 @@ def _new_index():
 class RAGRetriever:
     """Orquesta la ingesta y recuperacion de las fuentes internas y externas."""
 
-    def __init__(self, client_id: str = config.DEFAULT_CLIENT_ID):
+    def __init__(
+        self,
+        client_id: str = config.DEFAULT_CLIENT_ID,
+        market: dict | None = None,
+        news: list[dict] | None = None,
+    ):
         self.client_id = client_id
+        self._market = market
+        self._news = news
         self.internal_index = _new_index()
         self.external_index = _new_index()
         self._internal_docs: list[_RawDoc] = []
@@ -135,8 +142,8 @@ class RAGRetriever:
             )
 
     def _load_external_sources(self) -> None:
-        market = json.loads(config.MARKET_DATA_PATH.read_text(encoding="utf-8"))
-        news = json.loads(config.NEWS_PATH.read_text(encoding="utf-8"))
+        market = self._market or json.loads(config.MARKET_DATA_PATH.read_text(encoding="utf-8"))
+        news = self._news or json.loads(config.NEWS_PATH.read_text(encoding="utf-8"))
 
         for asset in market["assets"]:
             self._add_external(

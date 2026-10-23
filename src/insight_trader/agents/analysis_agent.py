@@ -23,11 +23,18 @@ class RiskMarketSignal:
 
 
 class AnalysisAgent:
-    def __init__(self, client_id: str = config.DEFAULT_CLIENT_ID):
+    def __init__(
+        self,
+        client_id: str = config.DEFAULT_CLIENT_ID,
+        market: dict | None = None,
+        news: list[dict] | None = None,
+    ):
+        # `market`/`news` permiten inyectar un entorno distinto al de los JSON
+        # (ej. escenarios de shock del agente EP2); por defecto se leen de disco.
         self.client_id = client_id
         self._client = json.loads(config.client_data_path(client_id).read_text(encoding="utf-8"))
-        self._market = json.loads(config.MARKET_DATA_PATH.read_text(encoding="utf-8"))
-        self._news = json.loads(config.NEWS_PATH.read_text(encoding="utf-8"))
+        self._market = market or json.loads(config.MARKET_DATA_PATH.read_text(encoding="utf-8"))
+        self._news = news or json.loads(config.NEWS_PATH.read_text(encoding="utf-8"))
 
     def run(self, ticker: str) -> RiskMarketSignal:
         risk = self._client["risk_profile"]
