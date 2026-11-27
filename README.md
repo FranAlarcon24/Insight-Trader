@@ -11,7 +11,8 @@ El agente planifica sus tareas por prioridad, **re-planifica** cuando cambian la
 Proyecto académico, asignatura "Ingeniería de Soluciones con IA" (ISY0101).
 
 - Evaluación Parcial 1: pipeline RAG de fuentes duales.
-- Evaluación Parcial 2: agente funcional (este README).
+- Evaluación Parcial 2: agente funcional.
+- Evaluación Parcial 3: **observabilidad** del agente: trazas, métricas, análisis de registros, dashboard y seguridad. Ver [`docs/observabilidad.md`](docs/observabilidad.md).
 
 ## Problema organizacional
 
@@ -48,11 +49,14 @@ En [`docs/architecture.md`](docs/architecture.md) están el detalle de component
 | **Herramientas de consulta** | `consultar_portafolio`, `consultar_mercado`, `buscar_noticias` (RAG FAISS), `recordar_memoria` |
 | **Herramientas de razonamiento** | `evaluar_riesgo` (volatilidad vs. tolerancia), `evaluar_concentracion` (exposición vs. límite del perfil) |
 | **Herramientas de escritura** | `registrar_alerta` (`outputs/alertas.jsonl`), `generar_informe` (`outputs/informes/*.md`), `guardar_preferencia` (SQLite) |
-| **Memoria de corto plazo** | Checkpointer de LangGraph por `thread_id`: preguntas de seguimiento como "¿y ahora?" |
+| **Memoria de corto plazo** | Checkpointer SQLite de LangGraph por `thread_id` (sobrevive a reinicios): preguntas de seguimiento como "¿y ahora?" |
 | **Memoria de largo plazo** | SQLite con búsqueda semántica: recomendaciones previas y preferencias entre sesiones |
 | **Planificación** | Plan inicial priorizado y re-planificación después de cada herramienta (reglas R0–R6) |
 | **Condiciones cambiantes** | Escenarios `normal`, `shock` y `datos_desactualizados` (cambiables en mitad de la conversación) |
-| **LLM intercambiable** | LLM simulado offline (por defecto) o Claude vía `langchain-anthropic` |
+| **LLM real con respaldo** | API de NVIDIA (`nemotron-3.5-lightning`) → Ollama local (`qwen2.5:3b`) → modo degradado determinista. Limitador de tasa, reintentos con espera creciente y circuit breaker |
+| **Embeddings neuronales** | `embeddinggemma` vía Ollama para el RAG y la memoria (hashing solo como respaldo) |
+| **Observabilidad (EP3)** | Trazas por turno (nodos, herramientas, LLM, tokens, CPU/RAM), logs JSON, banco de evaluación, métricas, análisis automático y dashboard |
+| **Seguridad (EP3)** | Guardrail de entrada (prompt injection), guardrail de salida (reglas duras), enmascaramiento de datos personales y seudónimos |
 
 ## Estructura del repositorio
 
@@ -62,11 +66,20 @@ src/insight_trader/
     graph.py                  #   Grafo LangGraph + fachada InsightTraderAgent
     planner.py                #   Plan priorizado y reglas de re-planificación
     tools.py                  #   9 herramientas (consulta / razonamiento / escritura)
-    llm.py                    #   Prompt de sistema, LLM simulado con tool calling, Claude
+    llm.py                    #   Prompt, router de proveedores (NVIDIA/Ollama/degradado), limitador de tasa
+    guardrails.py             #   Guardrails de entrada y salida (EP3)
     memory.py                 #   Memoria de largo plazo (SQLite + búsqueda semántica)
     environment.py            #   Entorno de mercado con escenarios
     cli.py                    #   CLI para la demo en vivo
     server.py                 #   API HTTP para la vista web
+  observability/              # Observabilidad (EP3)
+    tracing.py                #   TraceCollector (callbacks) y monitor de CPU/RAM
+    store.py                  #   trazas.jsonl y log JSON estructurado
+    privacy.py                #   Enmascaramiento de datos personales, seudonimos, prompt injection
+    evaluation.py             #   Banco de evaluacion (24 casos con variabilidad de datos)
+    metrics.py                #   Precision, consistencia, errores, latencia, recursos
+    analysis.py               #   Deteccion automatica de cuellos de botella y anomalias
+    report.py                 #   Datos del dashboard
   agents/                     # Pipeline de la EP1 (se reutiliza el AnalysisAgent)
   rag/                        # RAG de fuentes duales con FAISS (EP1)
   data/                       # Datos simulados: 3 clientes, mercado, noticias
@@ -74,12 +87,15 @@ docs/
   architecture.md             # Diagramas de orquestación y justificación de componentes
   evidencia_escenarios.md     # Traza real de 6 escenarios de decisión (autogenerado)
   documentacion_tecnica.md    # Documentación de la EP1
+  observabilidad.md           # Observabilidad, métricas, resultados y mejoras (EP3)
+  analisis_registros.md       # Reporte del análisis automático de trazas (autogenerado)
   prompts.md                  # Diseño de prompts (EP1)
 scripts/
   demo_escenarios.py          # Regenera docs/evidencia_escenarios.md
   export_agent_demo.py        # Exporta conversaciones para el modo grabado web
   export_demo_data.py         # Exporta respuestas del pipeline de la EP1 a JSON
-tests/                        # 21 pruebas automatizadas (pytest)
+  exportar_observabilidad.py  # Exporta metricas y trazas al dashboard (EP3)
+tests/                        # 59 pruebas automatizadas (pytest)
 web-react/                    # App React: interfaz del agente (EP2)
   src/agent/                  #   Vista del agente: chat, plan, herramientas, re-planificación
 web/                          # Vista HTML simple de la EP1
@@ -97,6 +113,18 @@ pip install -e .
 ```
 
 En Git Bash, Linux o macOS, activar con `source .venv/Scripts/activate` o `source .venv/bin/activate`.
+
+### LLM y embeddings (EP3)
+
+1. Copia `.env.example` como `.env` y completa `NVIDIA_API_KEY` (clave gratuita en [build.nvidia.com](https://build.nvidia.com)). El `.env` está en `.gitignore`.
+2. Instala [Ollama](https://ollama.com) y descarga los modelos locales:
+
+```powershell
+ollama pull embeddinggemma:300m   # embeddings del RAG y la memoria
+ollama pull qwen2.5:3b            # respaldo local si NVIDIA no responde
+```
+
+Sin clave de NVIDIA ni Ollama el agente igual funciona: cae al modo degradado (planificador determinista) y a embeddings por hashing, y lo registra en la traza.
 
 ## Ejecución
 
@@ -183,19 +211,32 @@ Para probar la memoria entre sesiones:
 
 ```powershell
 python scripts/demo_escenarios.py   # regenera docs/evidencia_escenarios.md
-python -m pytest -q                 # 21 pruebas
+python -m pytest -q                 # 59 pruebas
 ```
 
-### 4. Con un LLM real (Claude)
+### 4. Observabilidad (EP3)
 
 ```powershell
-pip install langchain-anthropic
-$env:INSIGHT_TRADER_LLM_PROVIDER = "anthropic"
-$env:ANTHROPIC_API_KEY = "sk-ant-..."
-python -m insight_trader.agent.cli --client valentina_rojas "Que hago con TSLA?"
+# Banco de evaluacion: 24 casos x N repeticiones con una configuracion dada
+python -m insight_trader.observability.evaluation --etiqueta determinista --cadena mock --reps 2
+$env:INSIGHT_TRADER_MEJORAS = "off"  # medicion "antes" (las mejoras vienen activas por defecto)
+python -m insight_trader.observability.evaluation --etiqueta nvidia --cadena nvidia,mock --reps 3
+python -m insight_trader.observability.evaluation --etiqueta nvidia_sin_guardrail --cadena nvidia,mock --guardrail off
+$env:INSIGHT_TRADER_MEJORAS = "on"   # medicion "despues"
+python -m insight_trader.observability.evaluation --etiqueta nvidia_mejorado --cadena nvidia,mock --reps 3
+
+# Analisis automatico de registros (cuellos de botella, atipicos, patrones de error)
+python -m insight_trader.observability.analysis
+
+# Exporta metricas y trazas al dashboard y a docs/analisis_registros.md
+python scripts/exportar_observabilidad.py
 ```
 
-Por defecto se usa `ScriptedToolCallingLLM`, un LLM simulado que lee el mismo prompt que leería Claude (plan + hallazgos), llama a la siguiente herramienta pendiente y redacta la respuesta citando los datos. Esto hace la demo y las pruebas reproducibles, offline y sin costo. Las reglas de seguridad (R1–R6) viven en el planificador, no en el LLM, así que se cumplen con ambos modelos.
+Cada turno del agente (CLI, web o evaluación) deja su traza en `outputs/observabilidad/trazas.jsonl` y un evento en el log JSON `outputs/observabilidad/agente.log`. El dashboard está en la sección **Observabilidad** de la web (o directo en `/#observabilidad`): en vivo si la API está corriendo, o con la última exportación en Vercel.
+
+### 5. Elegir el proveedor de LLM
+
+`INSIGHT_TRADER_LLM_CHAIN` define la cadena (por defecto `nvidia,ollama,mock`). Las pruebas fijan `mock` (planificador determinista) para ser rápidas y reproducibles. Claude sigue disponible como `anthropic` (requiere `pip install langchain-anthropic` y `ANTHROPIC_API_KEY`). Las reglas de seguridad (R1–R6) viven en el planificador y en el guardrail de salida, no en el LLM, así que se cumplen con cualquier proveedor.
 
 ## Escenarios de toma de decisiones
 

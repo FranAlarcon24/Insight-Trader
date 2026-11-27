@@ -96,7 +96,7 @@ class AnthropicLLM(BaseLLM):
 
 
 def get_llm(provider: str | None = None) -> BaseLLM:
-    provider = provider or config.LLM_PROVIDER
+    provider = provider or config.EP1_LLM_PROVIDER
     if provider == "anthropic":
         return AnthropicLLM()
     return MockLLM()

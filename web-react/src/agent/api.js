@@ -53,5 +53,7 @@ export const fetchMarket = (scenario) =>
 
 export const fetchRealMarket = () => request("/api/market/real");
 
+export const fetchObservability = () => request("/api/observability");
+
 export const fetchRecommendations = (scenario) =>
   request(`/api/recommendations?scenario=${encodeURIComponent(scenario)}`);

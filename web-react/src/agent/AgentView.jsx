@@ -11,6 +11,7 @@ import { SCENARIOS, SUGGESTIONS, scenarioLabel } from "./format";
 import InfoPage from "./InfoPages";
 import MarketPage from "./MarketPage";
 import RecommendationsPage from "./RecommendationsPage";
+import ObservabilityPage from "./ObservabilityPage";
 import AgentTurn from "./AgentTurn";
 import NewClientModal from "./NewClientModal";
 import {
@@ -21,6 +22,7 @@ import {
   IconMemory,
   IconPanel,
   IconPlus,
+  IconPulse,
   IconSend,
   IconSpark,
   IconTarget,
@@ -30,6 +32,7 @@ import {
 import "./agent.css";
 import "./forms.css";
 import "./market.css";
+import "./observability.css";
 
 // Ids generados solo desde manejadores de eventos (nunca durante el render)
 let idSeq = 0;
@@ -341,7 +344,10 @@ export default function AgentView() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [contextOpen, setContextOpen] = useState(false);
-  const [page, setPage] = useState("chat"); // "chat" o el id de una seccion informativa
+  // "chat" o el id de una seccion; #observabilidad abre el dashboard directo
+  const [page, setPage] = useState(() =>
+    window.location.hash.startsWith("#observabilidad") ? "observabilidad" : "chat",
+  );
   const scrollRef = useRef(null);
 
   // Cada seccion informativa se abre desde el inicio
@@ -555,8 +561,10 @@ export default function AgentView() {
   // Paneles de mercado: "market:<escenario>"
   const marketScenario = page.startsWith("market:") ? page.slice(7) : null;
   const onRecs = page === "recomendaciones";
+  const onObs = page === "observabilidad";
   // Cualquier pagina que no es el chat oculta el composer y el panel de contexto
-  const onAbout = Boolean(infoPage) || Boolean(marketScenario) || onRecs;
+  const onAbout =
+    Boolean(infoPage) || Boolean(marketScenario) || onRecs || onObs;
 
   return (
     <div
@@ -590,6 +598,13 @@ export default function AgentView() {
           >
             <IconClipboard size={16} />
             Recomendaciones
+          </button>
+          <button
+            className={`nav-item ${onObs ? "active" : ""}`}
+            onClick={() => setPage("observabilidad")}
+          >
+            <IconPulse size={16} />
+            Observabilidad
           </button>
         </div>
 
@@ -674,7 +689,9 @@ export default function AgentView() {
         <header className="workspace-head">
           <div className="head-title">
             <span className="head-name">
-              {onRecs
+              {onObs
+                ? "Observabilidad"
+                : onRecs
                 ? "Recomendaciones"
                 : marketScenario
                   ? `Mercado · ${scenarioLabel(marketScenario)}`
@@ -702,7 +719,9 @@ export default function AgentView() {
         </header>
 
         <div className="workspace-scroll" ref={scrollRef}>
-          {onRecs ? (
+          {onObs ? (
+            <ObservabilityPage live={Boolean(live)} />
+          ) : onRecs ? (
             <RecommendationsPage
               live={Boolean(live)}
               activeScenario={scenario}

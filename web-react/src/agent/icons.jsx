@@ -185,3 +185,9 @@ export const IconClipboard = (p) => (
     <path d="M9 4.5V3.5h6v1M8.5 10.5l2 2 4-4M8.5 16.5h7" />
   </Svg>
 );
+
+export const IconPulse = (p) => (
+  <Svg {...p}>
+    <path d="M3 12h4l2.5-6 4 12 2.5-6H21" />
+  </Svg>
+);

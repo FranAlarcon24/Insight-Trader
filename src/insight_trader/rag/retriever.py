@@ -17,7 +17,7 @@ import json
 from dataclasses import dataclass, field
 
 from insight_trader import config
-from insight_trader.rag.vector_store import VectorStore, cosine_similarity, embed_text
+from insight_trader.rag.vector_store import VectorStore, cosine_similarity, embed_many, embed_text
 
 try:
     from langchain_community.vectorstores import FAISS
@@ -179,7 +179,8 @@ class RAGRetriever:
         dentro de ese subconjunto ya acotado."""
         candidates = [d for d in docs if ticker is None or d.metadata.get("ticker") in (None, ticker)]
         query_embedding = embed_text(query)
-        scored = [(cosine_similarity(query_embedding, embed_text(d.text)), d) for d in candidates]
+        doc_embeddings = embed_many([d.text for d in candidates])
+        scored = [(cosine_similarity(query_embedding, e), d) for e, d in zip(doc_embeddings, candidates)]
         scored.sort(key=lambda pair: pair[0], reverse=True)
         return [d for _, d in scored[:top_k]]
 

@@ -203,6 +203,30 @@ function FinalAnswer({ turn }) {
           <span className="mono">{fileName(turn.informe)}</span>
         </div>
       )}
+      {turn.traza_id && <TurnMeta turn={turn} />}
+    </div>
+  );
+}
+
+// Observabilidad (EP3): quien respondio, cuanto tardo y la traza del turno
+function TurnMeta({ turn }) {
+  const seconds = (turn.latencia_ms / 1000).toLocaleString("es-CL", {
+    maximumFractionDigits: 1,
+  });
+  return (
+    <div className="turn-meta">
+      <span>
+        LLM: <b>{turn.proveedor ?? "—"}</b>
+      </span>
+      <span>{seconds} s</span>
+      <span className="mono">traza {turn.traza_id}</span>
+      {turn.degradado && <span className="meta-flag warn">modo respaldo</span>}
+      {turn.guardrail?.intervino && (
+        <span className="meta-flag warn">corregida por el guardrail</span>
+      )}
+      {turn.seguridad?.pii_entrada?.length > 0 && (
+        <span className="meta-flag">datos personales enmascarados</span>
+      )}
     </div>
   );
 }

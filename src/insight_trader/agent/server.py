@@ -12,6 +12,7 @@ Endpoints:
     GET  /api/market?scenario=shock    -> metricas del escenario e impacto en clientes
     GET  /api/market/real              -> referencia de mercado real (Yahoo Finance)
     GET  /api/recommendations?scenario=shock -> accion sugerida por posicion y cliente
+    GET  /api/observability            -> metricas, hallazgos y trazas (EP3)
     POST /api/clients {client_name, risk_category, ...}  -> crea un cliente
     POST /api/clients/delete {client_id}                  -> elimina un cliente creado
     POST /api/ask    {client_id, question, thread_id, scenario}
@@ -34,6 +35,8 @@ from insight_trader.agent.market_view import real_market, scenario_snapshot
 from insight_trader.agent.memory import LongTermMemory
 from insight_trader.agent.recommendations import recommendations
 from insight_trader.agent.tools import TOOL_GROUPS
+from insight_trader.observability.report import dashboard_payload
+from insight_trader.observability.store import TraceStore
 
 TOOL_TYPE = {name: group for group, names in TOOL_GROUPS.items() for name in names}
 
@@ -155,6 +158,8 @@ def make_handler(service: AgentService):
                     self._send(200, service.recommendations(scenario))
             elif url.path == "/api/market/real":
                 self._send(200, real_market())
+            elif url.path == "/api/observability":
+                self._send(200, dashboard_payload(TraceStore().load()))
             elif self.path == "/api/health":
                 self._send(200, {"ok": True, "escenarios": list(SCENARIOS)})
             elif self.path == "/api/clients":

@@ -1,0 +1,360 @@
+/* Dashboard de observabilidad (EP3). Reutiliza kpi, data-table y vchart de market.css. */
+
+:root {
+  /* Tercera serie (llamadas al LLM): validada junto a --series-1/2 con el
+     validador dataviz; bajo 3:1 de contraste, por eso cada fila lleva etiqueta. */
+  --series-3: #00b894;
+}
+
+.obs {
+  max-width: 1040px;
+}
+.obs .kpi-row + .kpi-row {
+  margin-top: 12px;
+}
+.kpi.good {
+  border-color: #abefc6;
+}
+
+/* ---------------------------------------------------------------- filtros */
+
+.obs-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.obs-filter {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-2);
+  background: var(--app-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.obs-filter:hover {
+  background: var(--hover);
+}
+.obs-filter.active {
+  color: #fff;
+  background: var(--brand);
+  border-color: var(--brand);
+}
+.obs-filter:focus-visible,
+.link-btn:focus-visible,
+.obs-trace-item:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- tabla comparativa */
+
+.obs-compare tbody tr {
+  cursor: pointer;
+}
+.obs-compare tbody tr:hover {
+  background: var(--side-bg);
+}
+.obs-compare tbody tr.selected {
+  background: var(--blue-bg);
+}
+.link-btn {
+  padding: 0;
+  font: inherit;
+  font-weight: 500;
+  color: var(--text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* ---------------------------------------------------------------- graficos */
+
+.vchart-row.wide {
+  grid-template-columns: 170px 1fr;
+}
+.vchart-row.wide .vchart-label {
+  font-weight: 500;
+}
+.vchart-bar.s3,
+.key.s3 {
+  background: var(--series-3);
+}
+
+.waterfall .wf-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 460px;
+  overflow-y: auto;
+}
+.wf-row {
+  display: grid;
+  grid-template-columns: 170px 1fr 64px;
+  gap: 10px;
+  align-items: center;
+  min-height: 18px;
+}
+.wf-label {
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--text);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.wf-row.herramienta .wf-label,
+.wf-row.llm .wf-label {
+  padding-left: 12px;
+  color: var(--text-2);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11.5px;
+}
+.wf-track {
+  position: relative;
+  height: 12px;
+  background: var(--side-bg);
+  border-radius: 3px;
+}
+.wf-bar {
+  position: absolute;
+  top: 0;
+  height: 12px;
+  border-radius: 3px;
+  outline: none;
+}
+.wf-bar.s1 {
+  background: var(--series-1);
+}
+.wf-bar.s2 {
+  background: var(--series-2);
+}
+.wf-bar.s3 {
+  background: var(--series-3);
+}
+.wf-bar.error {
+  background-image: repeating-linear-gradient(45deg, transparent 0 3px, rgb(255 255 255 / 0.6) 3px 5px);
+  box-shadow: 0 0 0 1.5px var(--warn-c);
+}
+.wf-bar:hover,
+.wf-bar:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--app-bg),
+    0 0 0 3px var(--text-3);
+}
+.wf-value {
+  font-size: 11.5px;
+  color: var(--text-2);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- hallazgos */
+
+.obs-findings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.obs-finding {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.obs-finding strong {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.obs-finding p {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: var(--text-2);
+  overflow-wrap: anywhere;
+}
+.obs-sev {
+  align-self: start;
+  padding: 2px 0;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 999px;
+}
+.obs-sev.sev-alta {
+  color: var(--warn-c);
+  background: var(--warn-bg);
+}
+.obs-sev.sev-media {
+  color: var(--amber-c);
+  background: var(--amber-bg);
+}
+.obs-sev.sev-info {
+  color: var(--blue-c);
+  background: var(--blue-bg);
+}
+
+.obs-details summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.obs-details ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+
+/* ---------------------------------------------------------------- explorador */
+
+.obs-explorer {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .obs-explorer {
+    grid-template-columns: 1fr;
+  }
+}
+.obs-trace-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 640px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.obs-trace-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  padding: 9px 12px;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #f2f4f7;
+  cursor: pointer;
+}
+.obs-trace-item:hover {
+  background: var(--side-bg);
+}
+.obs-trace-item.active {
+  background: var(--blue-bg);
+}
+.obs-trace-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.obs-trace-ms {
+  margin-left: auto;
+  color: var(--text-2);
+  font-variant-numeric: tabular-nums;
+}
+.obs-trace-q {
+  overflow: hidden;
+  font-size: 12px;
+  color: var(--text-2);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.obs-state {
+  padding: 0 7px;
+  font-size: 10.5px;
+  font-weight: 600;
+  border-radius: 999px;
+  color: var(--good-c);
+  background: var(--good-bg);
+}
+.obs-state.st-degradado {
+  color: var(--amber-c);
+  background: var(--amber-bg);
+}
+.obs-state.st-error {
+  color: var(--warn-c);
+  background: var(--warn-bg);
+}
+.obs-state.st-bloqueado {
+  color: var(--violet-c);
+  background: var(--violet-bg);
+}
+.obs-trace-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.obs-trace-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+.obs-trace-meta b,
+.obs-q b {
+  color: var(--text);
+  font-weight: 600;
+}
+.obs-q {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.obs-events {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+  color: var(--text-2);
+}
+.obs-llm td,
+.obs-llm th {
+  font-size: 12px;
+}
+
+/* ---------------------------------------------------------------- metadatos del turno (chat) */
+
+.turn-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin-top: 10px;
+  padding-top: 10px;
+  font-size: 11.5px;
+  color: var(--text-3);
+  border-top: 1px dashed var(--border);
+}
+.turn-meta b {
+  color: var(--text-2);
+  font-weight: 600;
+}
+.meta-flag {
+  padding: 1px 8px;
+  font-weight: 500;
+  color: var(--blue-c);
+  background: var(--blue-bg);
+  border-radius: 999px;
+}
+.meta-flag.warn {
+  color: var(--amber-c);
+  background: var(--amber-bg);
+}
+
+/* Vista de una sola seccion (figuras del informe) */
+.obs-figure {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}

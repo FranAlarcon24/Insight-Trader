@@ -27,6 +27,7 @@ from insight_trader.agent.environment import MAX_DATA_AGE_HOURS, MarketEnvironme
 from insight_trader.agent.memory import LongTermMemory
 from insight_trader.agent.planner import CONCENTRATION_LIMITS, PORTFOLIO_MODE, RISKY_CLASSES
 from insight_trader.agents.analysis_agent import AnalysisAgent
+from insight_trader.observability.privacy import pseudonym
 from insight_trader.rag.retriever import RAGRetriever
 
 TOOL_GROUPS = {
@@ -219,7 +220,7 @@ def build_tools(ctx: AgentContext) -> list[BaseTool]:
         folder = ctx.output_dir / "informes"
         folder.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
-        path = folder / f"{ctx.client_id}_{ticker}_{ctx.scenario}_{stamp}.md"
+        path = folder / f"{pseudonym(ctx.client_id)}_{ticker}_{ctx.scenario}_{stamp}.md"
         title = "Revision de portafolio" if ticker == PORTFOLIO_MODE else f"Recomendacion {ticker}"
         path.write_text(
             f"# {title} - {ctx.client['client_name']}\n\n"

@@ -16,18 +16,29 @@ El agente es un `StateGraph` de LangGraph ([`agent/graph.py`](../src/insight_tra
 
 ```mermaid
 flowchart TD
-    START([Pregunta del cliente]) --> I[interpretar<br/>detecta activo o modo portafolio<br/>R0: hereda activo del turno anterior]
+    START([Pregunta del cliente]) --> S[seguridad<br/>guardrail de entrada:<br/>prompt injection, datos personales]
+    S -- inyeccion detectada --> B[bloquear] --> END0([Solicitud bloqueada])
+    S --> I[interpretar<br/>detecta activo o modo portafolio<br/>R0: hereda activo del turno anterior]
     I --> P[planificar<br/>plan inicial priorizado P1..P4]
-    P --> A{agente<br/>LLM con tools<br/>lee plan + hallazgos}
+    P --> A{agente<br/>LLMRouter: NVIDIA -> Ollama -> modo degradado<br/>lee plan + hallazgos}
     A -- tool_calls --> H[herramientas<br/>ToolNode LangGraph]
     H --> R[replanificar<br/>reglas R1..R6<br/>agrega / cancela tareas]
     R --> A
-    A -- respuesta final --> M[persistir<br/>guarda interacción en<br/>memoria de largo plazo]
+    A -- respuesta final --> V[validar<br/>guardrail de salida:<br/>reglas duras del dominio]
+    V --> M[persistir<br/>guarda interaccion en<br/>memoria de largo plazo]
     M --> END([Respuesta + alertas + informe])
 
-    CK[(Checkpointer<br/>InMemorySaver<br/>memoria corto plazo)] -.estado por thread_id.- A
+    CK[(Checkpointer SQLite<br/>memoria corto plazo)] -.estado por thread_id.- A
     LT[(SQLite<br/>memoria largo plazo)] -.- M
+    TR[/TraceCollector<br/>trazas + logs JSON/] -.callbacks.- A
 ```
+
+Cambios de la EP3 frente a la EP2:
+
+- **`seguridad`** y **`validar`**: guardrails de entrada y salida (ver `agent/guardrails.py`).
+- **`LLMRouter`** en el nodo `agente`: cadena de proveedores con limitador de tasa, reintentos con espera creciente, circuit breaker y modo degradado (ver `agent/llm.py`).
+- **Checkpointer SQLite** en vez de `InMemorySaver`: la memoria de corto plazo sobrevive a reinicios.
+- **`TraceCollector`**: callback de LangChain que registra cada nodo, herramienta y llamada al LLM (ver [observabilidad.md](observabilidad.md)).
 
 Lo que este diseño aporta frente a la EP1, que era una secuencia fija recuperación → análisis → generación:
 
@@ -220,6 +231,5 @@ flowchart LR
 
 ### Limitaciones conocidas
 
-- Los embeddings por hashing no capturan sinónimos: "cripto" y "Ethereum" no son cercanos. Mitigación: filtro por ticker y bonificación por ticker en la memoria.
-- La memoria de corto plazo (`InMemorySaver`) se pierde al reiniciar el proceso. La de largo plazo no.
+- Desde la EP3 los embeddings son neuronales (`embeddinggemma` vía Ollama). El hashing queda solo como respaldo si Ollama no responde y en las pruebas.
 - Con un LLM real, el modelo podría llamar herramientas fuera del plan. `replanificar` lo registra como "acción no planificada" e incorpora el resultado, y el límite de 25 pasos evita los bucles.

@@ -22,6 +22,9 @@ from __future__ import annotations
 
 import json
 import re
+import unicodedata
+
+from insight_trader import config
 
 PORTFOLIO_MODE = "PORTAFOLIO"
 
@@ -42,6 +45,21 @@ PENDING, DONE, CANCELLED = "pendiente", "completada", "cancelada"
 
 # ---------------------------------------------------------------- interpretacion
 
+# Mejora EP3 (hallazgo del analisis de registros): los clientes nombran la
+# empresa o la clase de activo, no el ticker ("mis acciones de Tesla", "los
+# bonos"). Sin esto el agente respondia "sin recomendacion".
+TICKER_ALIASES = {
+    "tesla": "TSLA", "apple": "AAPL", "ethereum": "ETH", "ether": "ETH",
+    "bonos": "BND", "bono": "BND", "renta fija": "BND",
+    "inmobiliario": "VNQ", "inmobiliaria": "VNQ", "bienes raices": "VNQ", "reit": "VNQ",
+}
+
+
+def _plain(text: str) -> str:
+    text = unicodedata.normalize("NFKD", text.lower())
+    return "".join(c for c in text if not unicodedata.combining(c))
+
+
 def extract_ticker(question: str, known_tickers: set[str]) -> str | None:
     """Detecta el activo mencionado en la pregunta. Prioriza tickers
     conocidos; si se menciona un ticker desconocido (ej. NVDA) igual lo
@@ -50,6 +68,11 @@ def extract_ticker(question: str, known_tickers: set[str]) -> str | None:
     for ticker in sorted(known_tickers, key=len, reverse=True):
         if re.search(rf"\b{re.escape(ticker)}\b", upper):
             return ticker
+    if config.IMPROVEMENTS_ENABLED:
+        plain = _plain(question)
+        for alias, ticker in sorted(TICKER_ALIASES.items(), key=lambda kv: -len(kv[0])):
+            if ticker in known_tickers and re.search(rf"\b{re.escape(alias)}\b", plain):
+                return ticker
     candidates = [t for t in _TICKER_RE.findall(question) if t not in _NOT_TICKERS]
     return candidates[0] if candidates else None
 
@@ -200,8 +223,13 @@ def replan(tasks: list[dict], findings: dict, tool: str, args: dict, result: dic
 
     ticker = args.get("ticker") or findings["ticker"]
 
-    if "error" in result and tool != "consultar_portafolio":
-        log.append(f"{tool} fallo ({result['error']}); se continua con el resto del plan")
+    # Error de invocacion (argumentos invalidos, excepcion de la herramienta):
+    # no es una respuesta del dominio. Hallazgo EP3: un LLM llamo
+    # consultar_portafolio({}) sin ticker y el error se interpretaba como
+    # "activo fuera del portafolio" (R1), cancelando todo el plan.
+    invocation_error = "error" in result and not (tool == "consultar_portafolio" and "en_portafolio" in result)
+    if invocation_error:
+        log.append(f"{tool} fallo ({str(result['error'])[:120]}); la tarea sigue pendiente para reintentar")
         return log
 
     # R4 (se evalua antes que las reglas por herramienta): cualquier

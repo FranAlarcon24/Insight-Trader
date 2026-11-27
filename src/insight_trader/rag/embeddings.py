@@ -1,22 +1,24 @@
-"""Embeddings deterministas compatibles con la interfaz de LangChain.
+"""Adaptador de los embeddings del proyecto a la interfaz de LangChain.
 
-Se usa un embedding por hashing (ver `vector_store.embed_text`) en lugar de
-un modelo neuronal (ej. sentence-transformers/OpenAI) para que el pipeline
-sea 100% offline, gratuito y reproducible en la evaluacion. La interfaz
-`Embeddings` de LangChain se respeta para que el resto del codigo (FAISS)
-sea agnostico al proveedor: en produccion basta con reemplazar esta clase
-por `OpenAIEmbeddings` o `HuggingFaceEmbeddings` sin tocar `retriever.py`.
+FAISS (via LangChain) espera un objeto `Embeddings`. Esta clase delega en
+`vector_store.embed_many`, que usa el proveedor configurado (Ollama con
+`embeddinggemma` por defecto, o hashing como respaldo). Asi el RAG y la
+memoria de largo plazo comparten siempre el mismo espacio vectorial.
 """
 from __future__ import annotations
 
 from langchain_core.embeddings import Embeddings
 
-from insight_trader.rag.vector_store import embed_text
+from insight_trader.rag.vector_store import embed_many, embed_text
 
 
-class DeterministicEmbeddings(Embeddings):
+class ProjectEmbeddings(Embeddings):
     def embed_documents(self, texts: list[str]) -> list[list[float]]:
-        return [embed_text(text) for text in texts]
+        return embed_many(texts)
 
     def embed_query(self, text: str) -> list[float]:
         return embed_text(text)
+
+
+# Nombre anterior (EP1/EP2), se mantiene por compatibilidad
+DeterministicEmbeddings = ProjectEmbeddings

@@ -82,6 +82,137 @@ export function VolatilityChart({ assets, compare, scenarioName }) {
   );
 }
 
+/**
+ * Barras horizontales genericas (EP3): una fila por categoria y una barra
+ * por serie. `series` = [{ key, name, cls }]; `format` formatea los valores.
+ * Con mas de una serie se muestra la leyenda; cada barra lleva su valor.
+ */
+export function HBarChart({ rows, series, format = (v) => fmt(v), max }) {
+  const [tip, setTip] = useState(null);
+  const top =
+    max ?? Math.max(...rows.flatMap((r) => series.map((s) => r[s.key] ?? 0)), 1);
+
+  const show = (e, row, s) => {
+    const box = e.currentTarget.closest(".vchart").getBoundingClientRect();
+    const bar = e.currentTarget.getBoundingClientRect();
+    setTip({
+      x: bar.left - box.left + bar.width,
+      y: bar.top - box.top + bar.height / 2,
+      value: format(row[s.key] ?? 0),
+      label: series.length > 1 ? `${row.label} · ${s.name}` : row.label,
+    });
+  };
+
+  return (
+    <div className="vchart">
+      {series.length > 1 && (
+        <div className="chart-legend" aria-hidden="true">
+          {series.map((s) => (
+            <span key={s.key}>
+              <i className={`key ${s.cls}`} /> {s.name}
+            </span>
+          ))}
+        </div>
+      )}
+      <div className="vchart-rows" role="list">
+        {rows.map((r) => (
+          <div className="vchart-row wide" role="listitem" key={r.label}>
+            <span className="vchart-label">{r.label}</span>
+            <div className="vchart-bars">
+              {series.map((s) => (
+                <div className="vchart-track" key={s.key}>
+                  <span
+                    className={`vchart-bar ${s.cls}`}
+                    style={{ width: `${((r[s.key] ?? 0) / top) * 100}%` }}
+                    tabIndex={0}
+                    aria-label={`${r.label}, ${s.name}: ${format(r[s.key] ?? 0)}`}
+                    onPointerEnter={(e) => show(e, r, s)}
+                    onFocus={(e) => show(e, r, s)}
+                    onPointerLeave={() => setTip(null)}
+                    onBlur={() => setTip(null)}
+                  />
+                  <span className="vchart-value">{format(r[s.key] ?? 0)}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      {tip && (
+        <div className="chart-tip" style={{ left: tip.x + 8, top: tip.y }}>
+          <strong>{tip.value}</strong>
+          <span>{tip.label}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+const SPAN_CLS = { nodo: "s1", herramienta: "s2", llm: "s3" };
+const SPAN_NAME = { nodo: "Nodo del grafo", herramienta: "Herramienta", llm: "Llamada al LLM" };
+
+/**
+ * Cascada de spans de un turno (como LangSmith/Langfuse): cada fila es un
+ * nodo, herramienta o llamada al LLM, ubicada en el tiempo del turno.
+ */
+export function Waterfall({ spans, total, formatMs }) {
+  const [tip, setTip] = useState(null);
+  const end = Math.max(total || 0, ...spans.map((s) => s.inicio_ms + s.dur_ms), 1);
+  const show = (e, s) => {
+    const box = e.currentTarget.closest(".waterfall").getBoundingClientRect();
+    const bar = e.currentTarget.getBoundingClientRect();
+    setTip({
+      x: Math.min(bar.left - box.left + bar.width, box.width - 180),
+      y: bar.top - box.top + bar.height / 2,
+      value: formatMs(s.dur_ms),
+      label: `${SPAN_NAME[s.tipo]} · ${s.nombre} · inicio ${formatMs(s.inicio_ms)}${s.estado === "error" ? " · ERROR" : ""}`,
+    });
+  };
+  return (
+    <div className="vchart waterfall">
+      <div className="chart-legend" aria-hidden="true">
+        {Object.entries(SPAN_NAME).map(([k, name]) => (
+          <span key={k}>
+            <i className={`key ${SPAN_CLS[k]}`} /> {name}
+          </span>
+        ))}
+      </div>
+      <div className="wf-rows" role="list">
+        {spans.map((s, i) => (
+          <div className={`wf-row ${s.tipo}`} role="listitem" key={`${s.id}-${i}`}>
+            <span className="wf-label" title={s.nombre}>
+              {s.tipo === "nodo" ? "" : "↳ "}
+              {s.nombre}
+            </span>
+            <div className="wf-track">
+              <span
+                className={`wf-bar ${SPAN_CLS[s.tipo]} ${s.estado === "error" ? "error" : ""}`}
+                style={{
+                  left: `${(s.inicio_ms / end) * 100}%`,
+                  width: `max(3px, ${(s.dur_ms / end) * 100}%)`,
+                }}
+                tabIndex={0}
+                aria-label={`${SPAN_NAME[s.tipo]} ${s.nombre}: ${formatMs(s.dur_ms)}`}
+                onPointerEnter={(e) => show(e, s)}
+                onFocus={(e) => show(e, s)}
+                onPointerLeave={() => setTip(null)}
+                onBlur={() => setTip(null)}
+              />
+            </div>
+            <span className="wf-value">{formatMs(s.dur_ms)}</span>
+          </div>
+        ))}
+      </div>
+      {tip && (
+        <div className="chart-tip" style={{ left: tip.x + 8, top: tip.y }}>
+          <strong>{tip.value}</strong>
+          <span>{tip.label}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** Minigrafico de precios con cursor: muestra fecha y cierre del punto mas cercano. */
 export function Sparkline({
   series,
